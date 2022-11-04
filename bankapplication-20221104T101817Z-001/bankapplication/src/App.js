@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
-
+import logo from "./logo.svg";
+import "./App.css";
+import Userlogin from "./Components/Userlogin";
+import { BrowserRouter, Route, Routes, Redirect } from "react-router-dom";
+import UserRegisteration from "./Components/UserRegisteration";
+import UserMenu from "./Components/UserMenu";
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <BrowserRouter>
+            <main className='d-flex flex-column'>
+                <Routes>
+                    <Route path='/' element={<UserMenu />} />
+                </Routes>
+                <Routes>
+                    <Route path='/login' element={<Userlogin />} />
+                </Routes>
+                <Routes>
+                    <Route path='/register' element={<UserRegisteration />} />
+                </Routes>
+            </main>
+        </BrowserRouter>
+    );
 }
 
 export default App;
