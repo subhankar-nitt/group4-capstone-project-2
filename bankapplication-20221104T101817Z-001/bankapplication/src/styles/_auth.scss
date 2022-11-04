@@ -1,0 +1,44 @@
+.form {
+    border: 0.05em solid $primary;
+    border-radius: 0.5rem;
+    background-color: $light-primary;
+    padding: 3em;
+    height: fit-content;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: $dark;
+    h2,
+    h5,
+    h6 {
+        color: $primary;
+    }
+    input {
+        background-color: rgba($secondary, 0.1);
+        color: $secondary;
+        border-color: rgba($secondary, 0.2);
+        &:focus {
+            background-color: rgba($secondary, 0.1);
+            color: $secondary;
+        }
+        &::placeholder {
+            // color: $light-gray;
+        }
+    }
+
+    @media only screen and (max-width: 767px) {
+        padding: 1.3em;
+    }
+    button {
+        @media only screen and (max-width: 767px) {
+            width: 100%;
+        }
+    }
+    .input-group-text {
+        color: $white;
+        background-color: $highlight;
+        border: 0px;
+    }
+}
