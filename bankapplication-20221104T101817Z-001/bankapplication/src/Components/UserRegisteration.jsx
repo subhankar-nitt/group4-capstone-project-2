@@ -193,7 +193,24 @@ const UserRegistration = () => {
                         />
                         <FormFeedback>Please enter valid date</FormFeedback>
                     </FormGroup>
+                    <FormGroup>
+                        <Label for='password'>Password</Label>
 
+                        <Input
+                            type='password'
+                            name='password'
+                            id='password'
+                            placeholder='Password'
+                            onChange={handleChange}
+                            required
+                            invalid={
+                                credentials?.password === "" || !valid.password
+                            }
+                        />
+                        <FormFeedback>
+                            Password length should be at least 8
+                        </FormFeedback>
+                    </FormGroup>
                     <FormGroup className=''>
                         <>
                             <div className=' text-align-end ml-auto mr-auto'>
