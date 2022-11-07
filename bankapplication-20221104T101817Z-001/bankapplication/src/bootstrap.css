@@ -29,8 +29,8 @@
     --gray: #cecece;
     --gray-dark: #343a40;
     --light-gray: #d4d0d0dc;
-    --primary: #4b369d;
-    --secondary: #5b55ff;
+    --primary: #47b5ff;
+    --secondary: #4c6793;
     --highlight: #0f3057;
     --success: #56cc9d;
     --info: #6cc3d5;
@@ -2742,7 +2742,7 @@ fieldset:disabled a.btn {
     color: #fff;
     background-color: #5eb69d;
     border-color: #55b298;
-    box-shadow: 0 0 0 0.2rem rgba(136, 208, 255, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(71, 181, 255, 0.5);
 }
 
 .btn-primary.disabled,

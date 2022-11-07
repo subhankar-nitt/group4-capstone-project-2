@@ -11,17 +11,10 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
         monospace;
 }
-.text-align-center {
-    text-align: center;
-}
-.links {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    background-color: rgb(149, 182, 255) !important;
-}
-.links a:hover {
+
+/* .links a:hover {
     color: white;
 }
 .links:hover {
     background-color: rgb(111, 151, 239) !important;
-}
+} */

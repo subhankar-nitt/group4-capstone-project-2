@@ -4,19 +4,25 @@ import { Button } from "reactstrap";
 
 const UserMenu = () => {
     return (
-        <div className='auth d-flex flex-row '>
+        <div className='auth d-flex flex-row justify-content-center'>
             <ul
                 className='ml-auto mr-auto col-12 col-md-5 col-lg-4 form d-flex flex-column'
                 style={{ marginTop: "100px" }}>
-                <Button className='links '>
-                    <Link to='/applyLoan'>Apply For Loans</Link>
-                </Button>
-                <Button className='links'>
-                    <Link to='/transactions'>Transactions</Link>
-                </Button>
-                <Button className='links'>
-                    <Link to='/statement'>View Statements</Link>
-                </Button>
+                <Link to='/applyLoan'>
+                    <Button color='primary' className='links '>
+                        Apply For Loans
+                    </Button>
+                </Link>
+                <Link to='/transactions'>
+                    <Button color='primary' className='links'>
+                        Transactions
+                    </Button>
+                </Link>
+                <Link to='/statement'>
+                    <Button color='primary' className='links'>
+                        View Statements
+                    </Button>
+                </Link>
             </ul>
         </div>
     );

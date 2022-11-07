@@ -7,12 +7,6 @@ import {
     Form,
     FormGroup,
     Input,
-    InputGroupAddon,
-    InputGroupText,
-    InputGroup,
-    Modal,
-    ModalBody,
-    ModalFooter,
     FormFeedback,
     Label,
 } from "reactstrap";
@@ -61,9 +55,9 @@ const Userlogin = () => {
         });
     };
     return (
-        <div className='auth d-flex flex-row '>
+        <div className='auth d-flex flex-row justify-content-center'>
             <div
-                className='ml-auto mr-auto col-12 col-md-7 col-lg-6 form'
+                className='ml-auto mr-auto col-12 col-md-7 col-lg-6 form '
                 style={{ marginTop: "100px" }}>
                 <h2>Global Bank User Login Page</h2>
                 <Form onSubmit={submit}>
@@ -110,7 +104,7 @@ const Userlogin = () => {
                                     className='ml-auto mr-auto'
                                     style={{ width: "fit-content" }}>
                                     <Button
-                                        color='secondary'
+                                        color='primary'
                                         className='ml-auto mr-auto'
                                         disabled={
                                             !(valid.userId && valid.password)

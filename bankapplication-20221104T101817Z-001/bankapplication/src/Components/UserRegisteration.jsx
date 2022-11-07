@@ -42,6 +42,7 @@ const UserRegistration = () => {
         middleName: true,
         occupation: true,
         city: true,
+        dob: true,
     });
     const submit = (e) => {
         e.preventDefault();
@@ -69,10 +70,10 @@ const UserRegistration = () => {
         return bool;
     };
     return (
-        <div className='auth d-flex flex-row '>
+        <div className='auth d-flex flex-row justify-content-center'>
             <div
-                className='ml-auto mr-auto col-12 col-md-7 col-lg-6 form'
-                style={{ marginTop: "100px" }}>
+                className='ml-auto mr-auto col-12 col-md-7 col-lg-6 form '
+                style={{ marginTop: "100px", marginBottom: "100px" }}>
                 <h2>Global Bank User Opening Page</h2>
                 <Form onSubmit={submit}>
                     <FormGroup>
@@ -183,6 +184,7 @@ const UserRegistration = () => {
                             placeholder='date placeholder'
                             onChange={handleChange}
                             required
+                            invalid={credentials?.dob === "" || !valid.dob}
                         />
                         <FormFeedback>Please enter valid date</FormFeedback>
                     </FormGroup>
@@ -194,9 +196,13 @@ const UserRegistration = () => {
                                     className='ml-auto mr-auto'
                                     style={{ width: "fit-content" }}>
                                     <Button
-                                        color='secondary'
+                                        color='primary'
                                         className='ml-auto mr-auto'
-                                        disabled={!isValid}>
+                                        disabled={
+                                            !Object.values(valid).every(
+                                                (v) => v === true,
+                                            )
+                                        }>
                                         Register
                                     </Button>
                                 </div>

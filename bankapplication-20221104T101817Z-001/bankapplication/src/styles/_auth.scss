@@ -1,7 +1,7 @@
 .form {
     border: 0.05em solid $primary;
     border-radius: 0.5rem;
-    background-color: $light-primary;
+    // background-color: $secondary;
     padding: 3em;
     height: fit-content;
     margin-top: auto;
@@ -10,10 +10,12 @@
     flex-direction: column;
     justify-content: center;
     color: $dark;
+
     h2,
     h5,
     h6 {
-        color: $primary;
+        color: $dark;
+        // color: white;
     }
     input {
         background-color: rgba($secondary, 0.1);
@@ -27,7 +29,12 @@
             // color: $light-gray;
         }
     }
-
+    a {
+        color: $primary;
+        &:hover {
+            color: $light-primary;
+        }
+    }
     @media only screen and (max-width: 767px) {
         padding: 1.3em;
     }

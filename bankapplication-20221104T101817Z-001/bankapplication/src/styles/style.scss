@@ -108,3 +108,22 @@ a {
     flex-direction: column;
     justify-content: center;
 }
+.text-align-center {
+    text-align: center;
+}
+.links {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    a {
+        color: white;
+        &:hover {
+            color: rgba(rgb(181, 228, 255), 1);
+        }
+    }
+
+    width: 100% !important;
+    &:hover {
+        text-decoration: underline;
+    }
+    /* background-color: rgb(149, 182, 255) !important; */
+}
