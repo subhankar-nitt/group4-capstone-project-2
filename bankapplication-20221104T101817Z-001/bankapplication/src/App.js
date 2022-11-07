@@ -6,6 +6,7 @@ import UserRegisteration from "./Components/UserRegisteration";
 import UserMenu from "./Components/UserMenu";
 import ApplyLoan from "./Components/ApplyLoan";
 import TransactionManagement from "./Components/TransactionManagement";
+import ViewTransactions from "./Components/ViewTransactions";
 function App() {
     return (
         <BrowserRouter>
@@ -27,6 +28,9 @@ function App() {
                         path='/transactions'
                         element={<TransactionManagement />}
                     />
+                </Routes>
+                <Routes>
+                    <Route path='/statement' element={<ViewTransactions />} />
                 </Routes>
             </main>
         </BrowserRouter>
