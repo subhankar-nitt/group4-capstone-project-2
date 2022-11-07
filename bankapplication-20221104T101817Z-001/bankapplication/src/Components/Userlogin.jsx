@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import { useState } from "react";
 // import { useNavigate } from "react-router";
@@ -35,13 +36,22 @@ const Userlogin = () => {
     });
     const submit = (e) => {
         e.preventDefault();
+        axios.get(`http://localhost:8080/user/${credentials.userId}`).then(resp => {
 
-        if (
-            credentials.userId === "12345678" &&
-            credentials.password === "12345678"
-        )
-            navigate("/");
-        else navigate("/register");
+            console.log(resp.data);
+            if (
+                resp.data.password === credentials.password
+            )
+                navigate("/");
+            else navigate("/register");
+        })
+
+        // if (
+        //     credentials.userId === "12345678" &&
+        //     credentials.password === "12345678"
+        // )
+        //     navigate("/");
+        // else navigate("/register");
     };
 
     const handleChange = async (e) => {
