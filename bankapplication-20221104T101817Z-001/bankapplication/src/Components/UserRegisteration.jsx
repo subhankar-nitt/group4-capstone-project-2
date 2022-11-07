@@ -122,7 +122,7 @@ const UserRegistration = () => {
                             type='text'
                             name='middleName'
                             id='middleName'
-                            placeholder='middleName'
+                            placeholder='Middle Name'
                             onChange={handleChange}
                             required
                             invalid={

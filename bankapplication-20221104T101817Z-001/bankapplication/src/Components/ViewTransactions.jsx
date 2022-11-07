@@ -28,31 +28,35 @@ const validateField = (field, value) => {
             return false;
     }
 };
+const transactionsList = [
+    {
+        userId: "12345678",
+        name: "USER",
+        dateOfTranction: new Date("11/05/2022"),
+        mediumOfTransaction: "UPI",
+        amount: "123",
+        transactionType: "withdraw",
+    },
+    {
+        userId: "098709483",
+        name: "USER2",
+        dateOfTranction: new Date("11/11/2022"),
+        mediumOfTransaction: "UPI",
+        amount: "123",
+        transactionType: "deposit",
+    },
+];
 const ViewTransactions = () => {
     const [transaction, setTransaction] = useState({
         transactionType: transactionTypes[0],
+        userId: "12345",
     });
     const [valid, setValid] = useState({
         amount: true,
         from: true,
         to: true,
     });
-    const transactions = [
-        {
-            userId: "12345678",
-            name: "USER",
-            dateOfTranction: new Date(),
-            mediumOfTransaction: "UPI",
-            amount: "123",
-        },
-        {
-            userId: "098709483",
-            name: "USER2",
-            dateOfTranction: new Date(),
-            mediumOfTransaction: "UPI",
-            amount: "123",
-        },
-    ];
+    const [transactions, setTransactions] = useState(transactionsList);
     const handleChange = async (e) => {
         setTransaction({
             ...transaction,
@@ -63,16 +67,38 @@ const ViewTransactions = () => {
             [e.target.name]: validateField(e.target.name, e.target.value),
         });
     };
-    const apply = () => {};
+    const apply = (e) => {
+        e.preventDefault();
+        setTransactions(
+            transactionsList.filter(
+                (trans) =>
+                    (trans?.to
+                        ? new Date(trans.dateOfTranction) <=
+                          new Date(transaction.to)
+                        : true) &&
+                    (trans?.before
+                        ? new Date(trans.dateOfTranction) >=
+                          new Date(transaction.before)
+                        : true) &&
+                    (transaction.transactionType !== "all"
+                        ? trans.transactionType === transaction.transactionType
+                        : true),
+            ),
+        );
+    };
 
     return (
         <div className='auth d-flex flex-column align-items-center justify-content-center'>
             <div
                 className='ml-auto mr-auto col-12 col-md-7 col-lg-6 form '
-                style={{ marginTop: "100px" }}>
-                <h2>Global Bank User View Statement page</h2>
-                <Form onSubmit={apply}>
-                    <FormGroup>
+                style={{ marginTop: "30px" }}>
+                <h2 className='row'>
+                    <span className='col-12'>
+                        Global Bank User View Statement page
+                    </span>
+                </h2>
+                <Form onSubmit={apply} className='row px-0'>
+                    <FormGroup className='col-12 col-lg-6 mr-1'>
                         <Label for='userId'>Customer ID</Label>
                         <Input
                             type='text'
@@ -91,7 +117,7 @@ const ViewTransactions = () => {
                             Please enter a 8 character valid UserId
                         </FormFeedback>
                     </FormGroup>
-                    <FormGroup>
+                    <FormGroup className='col-12 col-lg-6 ml-1'>
                         <Label for='amount'>Select the transaction</Label>
                         <Input
                             type='select'
@@ -103,7 +129,7 @@ const ViewTransactions = () => {
                             ))}
                         </Input>
                     </FormGroup>
-                    <FormGroup>
+                    <FormGroup className='col-12 col-lg-6 mr-1'>
                         <Label for='city'>Transaction period from</Label>
                         <Input
                             type='date'
@@ -111,12 +137,12 @@ const ViewTransactions = () => {
                             id='from'
                             placeholder='Transaction period from'
                             onChange={handleChange}
-                            required
-                            invalid={transaction?.from === "" || !valid.from}
+                            // required
+                            // invalid={transaction?.from === "" || !valid.from}
                         />
                         <FormFeedback>Please enter valid date</FormFeedback>
                     </FormGroup>
-                    <FormGroup>
+                    <FormGroup className='col-12 col-lg-6 ml-1'>
                         <Label for='city'>Transaction period to</Label>
                         <Input
                             type='date'
@@ -124,8 +150,8 @@ const ViewTransactions = () => {
                             id='to'
                             placeholder='Transaction period to'
                             onChange={handleChange}
-                            required
-                            invalid={transaction?.to === "" || !valid.to}
+                            // required
+                            // invalid={transaction?.to === "" || !valid.to}
                         />
                         <FormFeedback>Please enter valid date</FormFeedback>
                     </FormGroup>
@@ -148,13 +174,13 @@ const ViewTransactions = () => {
                     </FormGroup>
                 </Form>
             </div>
-            <Table striped responsive>
+            <Table striped responsive hover>
                 <thead>
                     <tr>
-                        <td>dateOfTranction</td>
-                        <td>userId</td>
-                        <td>name</td>
-                        <td>mediumOfTransaction</td>
+                        <td>Date</td>
+                        <td>Id</td>
+                        <td>Name</td>
+                        <td>Medium of Transaction</td>
                         {(transaction.transactionType === "withdraw" ||
                             transaction.transactionType === "all") && (
                             <td>Withdrawals</td>
@@ -168,20 +194,27 @@ const ViewTransactions = () => {
                 </thead>
                 <tbody>
                     {transactions.map((tr, ind) => (
-                        <tr>
+                        <tr key={ind}>
                             <td>{tr.userId}</td>
                             <td>{tr.name}</td>
-                            <td>{tr.dateOfTranction.toString()}</td>
+                            <td>{tr.dateOfTranction.toDateString()}</td>
                             <td>{tr.mediumOfTransaction}</td>
-                            {(transaction.transactionType === "withdraw" ||
-                                transaction.transactionType === "all") && (
+                            {transaction.transactionType === "all" ? (
+                                <>
+                                    <td>
+                                        {tr.transactionType === "withdraw"
+                                            ? tr.amount
+                                            : ""}
+                                    </td>
+                                    <td>
+                                        {tr.transactionType === "deposit"
+                                            ? tr.amount
+                                            : ""}
+                                    </td>
+                                </>
+                            ) : (
                                 <td>{tr.amount}</td>
                             )}
-                            {(transaction.transactionType === "deposit" ||
-                                transaction.transactionType === "all") && (
-                                <td>{tr.amount}</td>
-                            )}
-                            {/* <td>{tr.amount}</td> */}
                         </tr>
                     ))}
                 </tbody>
