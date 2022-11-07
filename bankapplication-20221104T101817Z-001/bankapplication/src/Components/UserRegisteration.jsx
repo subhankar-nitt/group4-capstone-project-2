@@ -18,13 +18,18 @@ import {
 } from "reactstrap";
 const validatePassword = (pass) => pass.length >= 8;
 const validateUserid = (val) => val.length >= 8;
-
+const validateContact = (contact) => {
+    const re = /^\d{10}$/;
+    return re.test(contact);
+};
 const validateField = (field, value) => {
     switch (field) {
         case "userId":
             return validateUserid(value);
         case "password":
             return validatePassword(value);
+        case "contact":
+            return validateContact(value);
         default:
             return value !== "";
         // return true;
@@ -82,7 +87,7 @@ const UserRegistration = () => {
                             type='text'
                             name='firstName'
                             id='firstName'
-                            placeholder='firstName'
+                            placeholder='First Name'
                             onChange={handleChange}
                             required
                             invalid={
@@ -100,7 +105,7 @@ const UserRegistration = () => {
                             type='text'
                             name='lastName'
                             id='lastName'
-                            placeholder='lastName'
+                            placeholder='Last Name'
                             onChange={handleChange}
                             required
                             invalid={
@@ -135,7 +140,7 @@ const UserRegistration = () => {
                             type='text'
                             name='city'
                             id='city'
-                            placeholder='city'
+                            placeholder='Customer City'
                             onChange={handleChange}
                             required
                             invalid={credentials?.city === "" || !valid.city}
@@ -148,7 +153,7 @@ const UserRegistration = () => {
                             type='text'
                             name='contact'
                             id='contact'
-                            placeholder='contact'
+                            placeholder='Customer Contact'
                             onChange={handleChange}
                             required
                             invalid={
@@ -181,7 +186,7 @@ const UserRegistration = () => {
                             type='date'
                             name='dob'
                             id='dob'
-                            placeholder='date placeholder'
+                            placeholder='Date of Birth'
                             onChange={handleChange}
                             required
                             invalid={credentials?.dob === "" || !valid.dob}
@@ -212,8 +217,8 @@ const UserRegistration = () => {
 
                     <FormGroup style={{ marginTop: "50px" }}>
                         <h5 className='text-align-center'>
-                            Welcome to the bank,{" "}
-                            <Link to='/register'>Click here to register</Link>
+                            Already have an account,{" "}
+                            <Link to='/login'>Click here to Login</Link>
                         </h5>
                     </FormGroup>
                 </Form>

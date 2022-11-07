@@ -62,7 +62,7 @@ const Userlogin = () => {
                 <h2>Global Bank User Login Page</h2>
                 <Form onSubmit={submit}>
                     <FormGroup>
-                        <Label for='userId'>User ID</Label>
+                        <Label for='userId'>Customer ID</Label>
                         <Input
                             type='text'
                             name='userId'
