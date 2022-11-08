@@ -50,10 +50,10 @@ const UserRegistration = () => {
     });
     const submit = (e) => {
         e.preventDefault();
-        const id = Math.random().toString(36).slice(2, 7);
+        // const id = Math.random().toString(36).slice(2, 7);
         axios
             .post("http://localhost:8080/registerUser", {
-                customer_number: id,
+                // customer_number: id,
                 firstname: credentials.firstName,
                 middlename: credentials.middleName,
                 lastname: credentials.lastName,
@@ -64,7 +64,7 @@ const UserRegistration = () => {
             })
             .then((resp) => {
                 console.log(resp);
-                context.login(id);
+                context.login(resp.data.customer_number);
 
                 navigate("/login");
             })

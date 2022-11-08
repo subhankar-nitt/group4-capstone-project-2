@@ -1,6 +1,7 @@
+import axios from "axios";
 import React, { useContext } from "react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import {
     Button,
     Form,
@@ -33,7 +34,25 @@ const ApplyLoan = () => {
     const [valid, setValid] = useState({
         amount: true,
     });
-    const apply = () => {};
+    const navigate = useNavigate();
+
+    const apply = (e) => {
+        e.preventDefault();
+        console.log(loan);
+        axios.post('http://localhost:8082/addLoan',{
+            customer_number:loan.userId,
+            loan_amount:loan.amount,
+            branch_id:loan.branch
+
+        })
+        .then(resp=>{
+            console.log(resp.data);
+            alert('Loan applied successfully ! ');
+            navigate('/')
+        }).catch(err=>{
+            console.log(err.response)
+        })
+    };
     const handleChange = async (e) => {
         setLoan({
             ...loan,

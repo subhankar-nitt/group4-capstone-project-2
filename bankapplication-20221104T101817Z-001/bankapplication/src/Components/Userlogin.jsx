@@ -14,7 +14,7 @@ import {
 
 import AuthContext from "../context/auth.context";
 const validatePassword = (pass) => pass.length >= 8;
-const validateUserid = (val) => val.length >= 8;
+const validateUserid = (val) => val.length >= 5;
 
 const validateField = (field, value) => {
     switch (field) {
@@ -40,13 +40,15 @@ const Userlogin = () => {
     const submit = (e) => {
         e.preventDefault();
         axios
-            .get(`http://localhost:8080/user/${credentials.userId}`)
+            .post(`http://localhost:8080/login/`,{customer_id:credentials.userId,password:credentials.password})
             .then((resp) => {
                 console.log(resp.data);
                 if (resp.data.password === credentials.password) {
                     context.login(credentials.userId);
                     navigate("/");
                 } else navigate("/register");
+            }).catch(err=>{
+                alert(err.response?.data?.message)
             });
 
         // if (
@@ -89,7 +91,7 @@ const Userlogin = () => {
                             }
                         />
                         <FormFeedback>
-                            Please enter a 8 character valid UserId
+                            Please enter a valid UserId
                         </FormFeedback>
                     </FormGroup>
                     <FormGroup>

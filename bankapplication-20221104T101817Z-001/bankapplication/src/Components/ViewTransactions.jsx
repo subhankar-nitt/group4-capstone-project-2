@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 
 import { useContext, useState } from "react";
@@ -60,7 +61,7 @@ const ViewTransactions = () => {
         from: true,
         to: true,
     });
-    const [transactions, setTransactions] = useState(transactionsList);
+    const [transactions, setTransactions] = useState([]);
     const handleChange = async (e) => {
         setTransaction({
             ...transaction,
@@ -73,22 +74,34 @@ const ViewTransactions = () => {
     };
     const apply = (e) => {
         e.preventDefault();
-        setTransactions(
-            transactionsList.filter(
-                (trans) =>
-                    (trans?.to
-                        ? new Date(trans.dateOfTranction) <=
-                          new Date(transaction.to)
-                        : true) &&
-                    (trans?.before
-                        ? new Date(trans.dateOfTranction) >=
-                          new Date(transaction.before)
-                        : true) &&
-                    (transaction.transactionType !== "all"
-                        ? trans.transactionType === transaction.transactionType
-                        : true),
-            ),
-        );
+        axios.post(`http://localhost:8081/getTransactions/`, {
+            "account_number": transaction.userId,
+            "transaction_type": transaction.transactionType,
+            "start_date": transaction.from,
+            "end_date": transaction.to
+        })
+            .then(resp => { console.log(resp); setTransactions(resp.data) })
+            .catch(err => {
+                console.log(err.response?.data?.message);
+                alert(err.response?.data?.message);
+
+            })
+        // setTransactions(
+        //     transactionsList.filter(
+        //         (trans) =>
+        //             (trans?.to
+        //                 ? new Date(trans.dateOfTranction) <=
+        //                 new Date(transaction.to)
+        //                 : true) &&
+        //             (trans?.before
+        //                 ? new Date(trans.dateOfTranction) >=
+        //                 new Date(transaction.before)
+        //                 : true) &&
+        //             (transaction.transactionType !== "all"
+        //                 ? trans.transactionType === transaction.transactionType
+        //                 : true),
+        //     ),
+        // );
     };
 
     return (
@@ -101,7 +114,7 @@ const ViewTransactions = () => {
                 </h2>
                 <Form onSubmit={apply} className='row px-0'>
                     <FormGroup className='col-12 col-lg-6 mr-1'>
-                        <Label for='userId'>Customer ID</Label>
+                        <Label for='userId'>Account number</Label>
                         <Input
                             type='text'
                             name='userId'
@@ -111,9 +124,9 @@ const ViewTransactions = () => {
                             // onChange={handleChange}
                             required
                             disabled
-                            // invalid={
-                            //     transaction?.userId === "" || !valid.userId
-                            // }
+                        // invalid={
+                        //     transaction?.userId === "" || !valid.userId
+                        // }
                         />
                         <FormFeedback>
                             Please enter a 8 character valid UserId
@@ -139,8 +152,8 @@ const ViewTransactions = () => {
                             id='from'
                             placeholder='Transaction period from'
                             onChange={handleChange}
-                            // required
-                            // invalid={transaction?.from === "" || !valid.from}
+                        // required
+                        // invalid={transaction?.from === "" || !valid.from}
                         />
                         <FormFeedback>Please enter valid date</FormFeedback>
                     </FormGroup>
@@ -152,8 +165,8 @@ const ViewTransactions = () => {
                             id='to'
                             placeholder='Transaction period to'
                             onChange={handleChange}
-                            // required
-                            // invalid={transaction?.to === "" || !valid.to}
+                        // required
+                        // invalid={transaction?.to === "" || !valid.to}
                         />
                         <FormFeedback>Please enter valid date</FormFeedback>
                     </FormGroup>
@@ -176,51 +189,53 @@ const ViewTransactions = () => {
                     </FormGroup>
                 </Form>
             </div>
-            <Table striped responsive hover>
-                <thead>
-                    <tr>
-                        <td>Date</td>
-                        <td>Id</td>
-                        <td>Name</td>
-                        <td>Medium of Transaction</td>
-                        {(transaction.transactionType === "withdraw" ||
-                            transaction.transactionType === "all") && (
-                            <td>Withdrawals</td>
-                        )}
-                        {(transaction.transactionType === "deposit" ||
-                            transaction.transactionType === "all") && (
-                            <td>Deposits</td>
-                        )}
-                        {/* <td>amount</td> */}
-                    </tr>
-                </thead>
-                <tbody>
-                    {transactions.map((tr, ind) => (
-                        <tr key={ind}>
-                            <td>{tr.userId}</td>
-                            <td>{tr.name}</td>
-                            <td>{tr.dateOfTranction.toDateString()}</td>
-                            <td>{tr.mediumOfTransaction}</td>
-                            {transaction.transactionType === "all" ? (
-                                <>
-                                    <td>
-                                        {tr.transactionType === "withdraw"
-                                            ? tr.amount
-                                            : ""}
-                                    </td>
-                                    <td>
-                                        {tr.transactionType === "deposit"
-                                            ? tr.amount
-                                            : ""}
-                                    </td>
-                                </>
-                            ) : (
-                                <td>{tr.amount}</td>
-                            )}
+            {transactions?.length ?
+                <Table striped responsive hover>
+                    <thead>
+                        <tr>
+                            <td>Date</td>
+                            <td>Transaction Number</td>
+                            <td>Account Number</td>
+                            {/* <td>Name</td> */}
+                            <td>Medium of Transaction</td>
+                            {(transaction.transactionType === "withdraw" ||
+                                transaction.transactionType === "all") && (
+                                    <td>Withdrawals</td>
+                                )}
+                            {(transaction.transactionType === "deposit" ||
+                                transaction.transactionType === "all") && (
+                                    <td>Deposits</td>
+                                )}
+                            {/* <td>amount</td> */}
                         </tr>
-                    ))}
-                </tbody>
-            </Table>
+                    </thead>
+                    <tbody>
+                        {transactions.map((tr, ind) => (
+                            <tr key={ind}>
+                                <td>{new Date(tr.date_of_transaction).toDateString()}</td>
+                                <td>{tr.transaction_number}</td>
+                                <td>{tr.account_number}</td>
+                                <td>{tr.medium_of_transaction}</td>
+                                {transaction.transactionType === "all" ? (
+                                    <>
+                                        <td>
+                                            {tr.transaction_type === "withdraw"
+                                                ? tr.transaction_amount
+                                                : ""}
+                                        </td>
+                                        <td>
+                                            {tr.transaction_type === "deposit"
+                                                ? tr.transaction_amount
+                                                : ""}
+                                        </td>
+                                    </>
+                                ) : (
+                                    <td>{tr.transaction_amount}</td>
+                                )}
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>:<></>}
         </div>
     );
 };
