@@ -12,6 +12,7 @@ public class Customer_Master {
 
 	@Id
 	String customer_number;
+
 	String firstname;
 	String middlename;
 	String lastname;
@@ -19,24 +20,39 @@ public class Customer_Master {
 	String customer_contact_no;
 	String occupation;
 	Date customer_date_of_birth;
+	private  static long x=22000;
+	String password;
+
+    
+    public Customer_Master() {
+        this.x++;
+this.customer_number=String.valueOf(x);
+
+    }
 	
 	
-	public Customer_Master() {
-		
-	}
 	
-	
+
 	public Customer_Master(String customer_number, String firstname, String middlename, String lastname,
-			String customer_city, String customer_contact_no, String occupation, Date customer_date_of_birth) {
-		super();
-		this.customer_number = customer_number;
-		this.firstname = firstname;
-		this.middlename = middlename;
-		this.lastname = lastname;
-		this.customer_city = customer_city;
-		this.customer_contact_no = customer_contact_no;
-		this.occupation = occupation;
-		this.customer_date_of_birth = customer_date_of_birth;
+		String customer_city, String customer_contact_no, String occupation, Date customer_date_of_birth,String password) {
+	
+	super();		
+	this.customer_number = customer_number;
+	this.firstname = firstname;
+	this.middlename = middlename;
+	this.lastname = lastname;
+	this.customer_city = customer_city;
+	this.customer_contact_no = customer_contact_no;
+	this.occupation = occupation;
+	this.customer_date_of_birth = customer_date_of_birth;
+	this.password=password;
+	}
+
+	public String getPassword(){
+		return this.password;
+	}
+	public void setPassword(String password){
+		this.password=password;
 	}
 
 
@@ -45,11 +61,10 @@ public class Customer_Master {
 	}
 
 
-	public void setCustomer_number(String customer_number) {
-		this.customer_number = customer_number;
+	public void setCustomer_number(long x) {
+		this.customer_number = String.valueOf(x);
+
 	}
-
-
 	public String getFirstname() {
 		return firstname;
 	}

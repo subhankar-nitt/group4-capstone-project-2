@@ -10,6 +10,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Table(name="user_details")
 @Entity
 public class User_Details {
@@ -22,26 +26,26 @@ public class User_Details {
     @Column(name="pass")
     String password;
 
-    public User_Details(){
+    // public User_Details(){
 
-    }
-    public User_Details(String customer_id,String password){
+    // }
+    // public User_Details(String customer_id,String password){
 
-        super();
-        this.customer_id=customer_id;
-        this.password=password;
-    }
-    public void setCustomerId(String Customer_id){
-        this.customer_id=customer_id;
-    }
-    public String getCustomerId(){
-        return this.customer_id;
-    }
-    public String getPassword(){
-        return this.password;
-    }
-    public void setPassword(String password){
-        this.password=password;
-    }
+    //     super();
+    //     this.customer_id=customer_id;
+    //     this.password=password;
+    // }
+    // public void setCustomerId(String Customer_id){
+    //     this.customer_id=customer_id;
+    // }
+    // public String getCustomerId(){
+    //     return this.customer_id;
+    // }
+    // public String getPassword(){
+    //     return this.password;
+    // }
+    // public void setPassword(String password){
+    //     this.password=password;
+    // }
 
 }
