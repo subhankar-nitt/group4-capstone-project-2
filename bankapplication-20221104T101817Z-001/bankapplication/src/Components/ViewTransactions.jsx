@@ -97,9 +97,7 @@ const ViewTransactions = () => {
                 className='ml-auto mr-auto col-12 col-md-7 col-lg-6 form '
                 style={{ marginTop: "30px" }}>
                 <h2 className='row'>
-                    <span className='col-12'>
-                        Global Bank User View Statement page
-                    </span>
+                    <span className='col-12'>View Statement page</span>
                 </h2>
                 <Form onSubmit={apply} className='row px-0'>
                     <FormGroup className='col-12 col-lg-6 mr-1'>

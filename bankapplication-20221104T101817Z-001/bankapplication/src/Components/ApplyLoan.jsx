@@ -49,7 +49,7 @@ const ApplyLoan = () => {
             <div
                 className='ml-auto mr-auto col-12 col-md-7 col-lg-6 form '
                 style={{ marginTop: "100px" }}>
-                <h2>Global Bank User loan application Page</h2>
+                <h2>Loan application Page</h2>
                 <Form onSubmit={apply}>
                     <FormGroup>
                         <Label for='userId'>Customer ID</Label>
