@@ -1,5 +1,6 @@
 package com.example.globaluserbankmanagement.loanapplication.model;
 
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -57,3 +58,4 @@ public class Loan_Details {
 	
 	
 }
+

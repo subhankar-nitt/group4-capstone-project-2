@@ -21,16 +21,26 @@ public class Loan_DetailsController {
 	Loan_DetailsService service;
 	
 	@PostMapping("/addLoan")
-	public ResponseEntity<Loan_Details> addLoan(@RequestBody Loan_Details loan_details)
+	public ResponseEntity<Loan_Details> addLoan(
+			@RequestBody Loan_Details loan_details) throws Exception
 	{
+		if(service.checkIfUserCanApply(loan_details.getCustomer_number()))
+			throw new Exception("User is not a valid Account Holder");
+		
 		return new ResponseEntity<Loan_Details>(service.addLoan(loan_details),HttpStatus.ACCEPTED);
 	}
 	
-	@GetMapping("getAllLoans/{customer_number}")
-	public ResponseEntity<List<Loan_Details>> getAllLoans(
+	@GetMapping("/showAllLoans")
+	public ResponseEntity<List<Loan_Details>> showAllLoans(
 			@PathVariable("customer_number") String customer_number)
 	{
-		return new ResponseEntity<List<Loan_Details>>(service.getAllLoans(customer_number),HttpStatus.ACCEPTED);
+		return new ResponseEntity<List<Loan_Details>>(service.showAllLoans(customer_number),HttpStatus.ACCEPTED);
 	}
-
+	
+	@GetMapping("/checkIfUserCanApply/{customer_number}")
+	public ResponseEntity<Boolean> checkIfUserCanApply(
+			@PathVariable("customer_number") String customer_number)
+	{
+		return new ResponseEntity<Boolean>(service.checkIfUserCanApply(customer_number),HttpStatus.ACCEPTED);
+	}
 }
