@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -9,6 +9,8 @@ import {
     FormFeedback,
     Label,
 } from "reactstrap";
+import AuthContext from "../context/auth.context";
+
 const validateAmount = (val) => !isNaN(val) && val >= 0;
 const validateField = (field, value) => {
     switch (field) {
@@ -23,13 +25,16 @@ const validateField = (field, value) => {
 const transactionTypes = ["withdraw", "deposit"];
 
 const TransactionManagement = () => {
+    const context = useContext(AuthContext);
+
     const [loan, setLoan] = useState({
-        userId: "12345678",
+        userId: context.user,
         transactionType: transactionTypes[0],
     });
     const [valid, setValid] = useState({
         amount: true,
     });
+
     const apply = () => {};
     const handleChange = async (e) => {
         setLoan({

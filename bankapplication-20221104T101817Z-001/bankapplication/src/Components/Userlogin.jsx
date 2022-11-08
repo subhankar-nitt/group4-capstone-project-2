@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 // import { useNavigate } from "react-router";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,6 +11,8 @@ import {
     FormFeedback,
     Label,
 } from "reactstrap";
+
+import AuthContext from "../context/auth.context";
 const validatePassword = (pass) => pass.length >= 8;
 const validateUserid = (val) => val.length >= 8;
 
@@ -26,6 +28,7 @@ const validateField = (field, value) => {
 };
 const Userlogin = () => {
     const [credentials, setCredentials] = useState({});
+    const context = useContext(AuthContext);
     const navigate = useNavigate();
     const [valid, setValid] = useState({
         userId: true,
@@ -36,22 +39,23 @@ const Userlogin = () => {
     });
     const submit = (e) => {
         e.preventDefault();
-        axios.get(`http://localhost:8080/user/${credentials.userId}`).then(resp => {
-
-            console.log(resp.data);
-            if (
-                resp.data.password === credentials.password
-            )
-                navigate("/");
-            else navigate("/register");
-        })
+        axios
+            .get(`http://localhost:8080/user/${credentials.userId}`)
+            .then((resp) => {
+                console.log(resp.data);
+                if (resp.data.password === credentials.password) {
+                    context.login(credentials.userId);
+                    navigate("/");
+                } else navigate("/register");
+            });
 
         // if (
-        //     credentials.userId === "12345678" &&
+        //     credentials.userId === "11111111" &&
         //     credentials.password === "12345678"
-        // )
+        // ) {
+        //     context.login(credentials.userId);
         //     navigate("/");
-        // else navigate("/register");
+        // } else navigate("/register");
     };
 
     const handleChange = async (e) => {

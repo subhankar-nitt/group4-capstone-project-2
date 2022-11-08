@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
     Button,
@@ -11,6 +11,8 @@ import {
     FormFeedback,
     Label,
 } from "reactstrap";
+import AuthContext from "../context/auth.context";
+
 const transactionTypes = ["all", "withdraw", "deposit"];
 
 const validateAmount = (val) => !isNaN(val) && val >= 0;
@@ -47,9 +49,11 @@ const transactionsList = [
     },
 ];
 const ViewTransactions = () => {
+    const context = useContext(AuthContext);
+
     const [transaction, setTransaction] = useState({
         transactionType: transactionTypes[0],
-        userId: "12345",
+        userId: context.user,
     });
     const [valid, setValid] = useState({
         amount: true,

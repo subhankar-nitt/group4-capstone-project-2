@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../context/auth.context";
 
 import axios from "axios";
 import {
@@ -11,6 +12,7 @@ import {
     FormFeedback,
     Label,
 } from "reactstrap";
+import { useContext } from "react";
 const validatePassword = (pass) => pass.length >= 8;
 const validateUserid = (val) => val.length >= 8;
 const validateContact = (contact) => {
@@ -30,8 +32,10 @@ const validateField = (field, value) => {
         // return true;
     }
 };
+
 const UserRegistration = () => {
     const [credentials, setCredentials] = useState({});
+    const context = useContext(AuthContext);
     const navigate = useNavigate();
     const [valid, setValid] = useState({
         userId: true,
@@ -46,9 +50,10 @@ const UserRegistration = () => {
     });
     const submit = (e) => {
         e.preventDefault();
+        const id = Math.random().toString(36).slice(2, 7);
         axios
             .post("http://localhost:8080/registerUser", {
-                customer_number: Math.random().toString(36).slice(2, 7),
+                customer_number: id,
                 firstname: credentials.firstName,
                 middlename: credentials.middleName,
                 lastname: credentials.lastName,
@@ -59,6 +64,8 @@ const UserRegistration = () => {
             })
             .then((resp) => {
                 console.log(resp);
+                context.login(id);
+
                 navigate("/login");
             })
             .catch((err) => console.log(err));

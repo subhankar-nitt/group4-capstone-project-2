@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -9,6 +9,8 @@ import {
     FormFeedback,
     Label,
 } from "reactstrap";
+import AuthContext from "../context/auth.context";
+
 const validateAmount = (val) => !isNaN(val) && val >= 0 && val <= 100000;
 const validateField = (field, value) => {
     switch (field) {
@@ -22,8 +24,10 @@ const validateField = (field, value) => {
 };
 const branches = ["main", "temp"];
 const ApplyLoan = () => {
+    const context = useContext(AuthContext);
+
     const [loan, setLoan] = useState({
-        userId: "12345678",
+        userId: context.user,
         branch: branches[0],
     });
     const [valid, setValid] = useState({

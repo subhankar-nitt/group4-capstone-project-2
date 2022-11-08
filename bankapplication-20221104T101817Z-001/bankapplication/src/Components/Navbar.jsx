@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, Navigate } from "react-router-dom";
 // import logo from "../assets/logo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
@@ -16,15 +16,18 @@ import {
     DropdownMenu,
 } from "reactstrap";
 // import { types } from "../assets/data";
-// import AuthContext from "../context/auth.context";
+import AuthContext from "../context/auth.context";
 
 const NavbarComponent = () => {
-    // const context = useContext(AuthContext);
+    const context = useContext(AuthContext);
     const [error] = useState("");
     const [showError, setShowError] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
-
+    const logout = () => {
+        context.logout();
+        Navigate("/login");
+    };
     return (
         <div>
             <Alert
@@ -70,22 +73,33 @@ const NavbarComponent = () => {
                     <Nav
                         className='row justify-content-end pl-5 pr-3 w-100'
                         navbar>
-                        <NavItem className='m-1 my-2 my-lg-1 ml-lg-auto'>
-                            <NavLink to='/' exact>
-                                Home
-                            </NavLink>
-                        </NavItem>
+                        {context.user ? (
+                            <>
+                                <NavItem className='m-1 my-2 my-lg-1 ml-lg-auto'>
+                                    <NavLink to='/' exact>
+                                        User Menu
+                                    </NavLink>
+                                </NavItem>
 
-                        {/* <NavItem className='m-1 my-2 my-lg-1'>
-                            <NavLink to='/about'>About</NavLink>
-                        </NavItem> */}
-                        {/* <NavItem className='m-1 my-2 my-lg-1'>
-                            <NavLink to='/feed'>Login</NavLink>
-                        </NavItem> */}
-
-                        <NavItem className='m-1 my-2 my-lg-1'>
-                            <NavLink to='/login'>Login</NavLink>
-                        </NavItem>
+                                <NavItem className='m-1 my-2 my-lg-1 ml-lg-auto'>
+                                    <a
+                                        className='link'
+                                        href='.'
+                                        onClick={logout}>
+                                        Logout
+                                    </a>
+                                </NavItem>
+                            </>
+                        ) : (
+                            <>
+                                <NavItem className='m-1 my-2 my-lg-1'>
+                                    <NavLink to='/login'>Login</NavLink>
+                                </NavItem>
+                                <NavItem className='m-1 my-2 my-lg-1'>
+                                    <NavLink to='/register'>Register</NavLink>
+                                </NavItem>
+                            </>
+                        )}
                     </Nav>
                 </Collapse>
             </Navbar>
