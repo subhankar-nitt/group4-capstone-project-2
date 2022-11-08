@@ -1,20 +1,13 @@
 import React from "react";
 import { useState } from "react";
-// import { useNavigate } from "react-router";
 import { Link, useNavigate } from "react-router-dom";
 
-import axios from 'axios'
+import axios from "axios";
 import {
     Button,
     Form,
     FormGroup,
     Input,
-    InputGroupAddon,
-    InputGroupText,
-    InputGroup,
-    Modal,
-    ModalBody,
-    ModalFooter,
     FormFeedback,
     Label,
 } from "reactstrap";
@@ -53,19 +46,22 @@ const UserRegistration = () => {
     });
     const submit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8080/registerUser', {
-            customer_number: Math.random().toString(36).slice(2, 7),
-            firstname: credentials.firstName,
-            middlename: credentials.middleName,
-            lastname: credentials.lastName,
-            customer_city: credentials.city,
-            customer_contact_no: credentials.contact,
-            occupation: credentials.occupation,
-            customer_date_of_birth: credentials.dob
-        }).then(resp => {
-            console.log(resp);
-            navigate("/login");
-        }).catch(err => console.log(err))
+        axios
+            .post("http://localhost:8080/registerUser", {
+                customer_number: Math.random().toString(36).slice(2, 7),
+                firstname: credentials.firstName,
+                middlename: credentials.middleName,
+                lastname: credentials.lastName,
+                customer_city: credentials.city,
+                customer_contact_no: credentials.contact,
+                occupation: credentials.occupation,
+                customer_date_of_birth: credentials.dob,
+            })
+            .then((resp) => {
+                console.log(resp);
+                navigate("/login");
+            })
+            .catch((err) => console.log(err));
         // navigate("/login");
         // else navigate("/register");
         console.log(credentials);

@@ -7,9 +7,11 @@ import UserMenu from "./Components/UserMenu";
 import ApplyLoan from "./Components/ApplyLoan";
 import TransactionManagement from "./Components/TransactionManagement";
 import ViewTransactions from "./Components/ViewTransactions";
+import NavbarComponent from "./Components/Navbar";
 function App() {
     return (
         <BrowserRouter>
+            <NavbarComponent />
             <main className='main d-flex flex-column'>
                 <Routes>
                     <Route path='/' element={<UserMenu />} />

@@ -1,5 +1,6 @@
 @import "./variables";
 @import "./auth";
+@import "./navbar";
 
 #root {
     display: flex;
@@ -129,7 +130,7 @@ a {
 }
 .main {
     // background-image: linear-gradient(to right, #8360c3, #2ebf91);
-    background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);
+    // background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);
 }
 .table-responsive {
     margin-left: 2rem;
