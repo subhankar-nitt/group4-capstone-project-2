@@ -34,6 +34,7 @@ const TransactionManagement = () => {
 
     const [loan, setLoan] = useState({
         userId: context.user,
+        transactionNumber: context.user,
 
         transactionType: transactionTypes[0],
     });
@@ -47,17 +48,17 @@ const TransactionManagement = () => {
     const apply = (e) => {
         e.preventDefault();
         axios
-            .post(`http://localhost:8080/addTransactions/`, {
-                transaction_number: loan.transaction_number,
+            .post(`http://localhost:8080/addTransaction/`, {
+                transaction_number: loan.transactionNumber,
                 account_number: loan.userId,
                 medium_of_transaction: loan.medium_of_transaction,
                 date_of_transaction: new Date().toISOString().split("T")[0],
                 transaction_type: loan.transactionType,
-                transaction_amount: loan.transaction_amount,
+                transaction_amount: loan.amount,
             })
             .then((resp) => {
                 console.log(resp);
-                alert("Transaction completed successfully");
+                alert("Transaction completed successfully current balance "+resp?.data);
                 navigate("/");
             })
             .catch((err) => {
@@ -86,16 +87,16 @@ const TransactionManagement = () => {
                         <Label for='userId'>Transaction Number</Label>
                         <Input
                             type='text'
-                            name='transaction_number'
-                            id='transaction_number'
-                            placeholder='transaction_number'
-                            value={loan.transaction_number}
-                            onChange={handleChange}
+                            name='transactionNumber'
+                            id='transactionNumber'
+                            placeholder='transactionNumber'
+                            value={loan.transactionNumber}
+                            // onChange={handleChange}
                             required
-                            invalid={
-                                loan?.transaction_number === "" ||
-                                !valid.transaction_number
-                            }
+                            // disabled                            invalid={
+                            //     loan?.transaction_number === "" ||
+                            //     !valid.transaction_number
+                            // }
                         />
                         <FormFeedback>
                             Please enter a valid account number
