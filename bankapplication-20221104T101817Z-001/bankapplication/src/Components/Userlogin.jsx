@@ -27,8 +27,8 @@ const validateField = (field, value) => {
     }
 };
 const Userlogin = () => {
-    const [credentials, setCredentials] = useState({});
     const context = useContext(AuthContext);
+    const [credentials, setCredentials] = useState({ userId: context.user });
     const navigate = useNavigate();
     const [valid, setValid] = useState({
         userId: true,
