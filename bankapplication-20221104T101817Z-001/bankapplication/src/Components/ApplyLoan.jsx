@@ -23,7 +23,7 @@ const validateField = (field, value) => {
             return false;
     }
 };
-const branches = ["main", "temp"];
+const branches = ["BLR", "HYD","KOL","CHEN","MUM","DEL","GUR"];
 const ApplyLoan = () => {
     const context = useContext(AuthContext);
 
