@@ -61,6 +61,7 @@ const UserRegistration = () => {
                 customer_contact_no: credentials.contact,
                 occupation: credentials.occupation,
                 customer_date_of_birth: credentials.dob,
+                password: credentials.password,
             })
             .then((resp) => {
                 console.log(resp);
@@ -69,6 +70,7 @@ const UserRegistration = () => {
                 navigate("/login");
             })
             .catch((err) => console.log(err));
+        // context.login("newdata");
         // navigate("/login");
         // else navigate("/register");
         console.log(credentials);
