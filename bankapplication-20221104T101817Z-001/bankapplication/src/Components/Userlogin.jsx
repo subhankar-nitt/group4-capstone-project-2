@@ -40,15 +40,19 @@ const Userlogin = () => {
     const submit = (e) => {
         e.preventDefault();
         axios
-            .post(`http://localhost:8080/login/`,{customer_id:credentials.userId,password:credentials.password})
+            .post(`http://localhost:8080/login/`, {
+                customer_id: credentials.userId,
+                password: credentials.password,
+            })
             .then((resp) => {
                 console.log(resp.data);
                 if (resp.data.password === credentials.password) {
                     context.login(credentials.userId);
                     navigate("/");
                 } else navigate("/register");
-            }).catch(err=>{
-                alert(err.response?.data?.message)
+            })
+            .catch((err) => {
+                alert(err.response?.data?.message);
             });
 
         // if (
@@ -84,15 +88,14 @@ const Userlogin = () => {
                             name='userId'
                             id='userId'
                             placeholder='userId'
+                            defaultValue={context.user}
                             onChange={handleChange}
                             required
                             invalid={
                                 credentials?.userId === "" || !valid.userId
                             }
                         />
-                        <FormFeedback>
-                            Please enter a valid UserId
-                        </FormFeedback>
+                        <FormFeedback>Please enter a valid UserId</FormFeedback>
                     </FormGroup>
                     <FormGroup>
                         <Label for='password'>Password</Label>
