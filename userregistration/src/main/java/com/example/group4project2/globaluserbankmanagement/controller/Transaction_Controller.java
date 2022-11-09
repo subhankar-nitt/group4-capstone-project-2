@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ public class Transaction_Controller {
     @Autowired
     Transaction_Service transaction_Service;
 
+    @CrossOrigin(origins = "http://localhost:3000")  
     @PostMapping("/addTransaction")
     public int addTransaction(@RequestBody Transaction_Details transaction_Details) throws Exception{
         
