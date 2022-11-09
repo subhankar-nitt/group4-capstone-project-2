@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useContext } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,6 +19,10 @@ const validateField = (field, value) => {
             return validateAmount(value);
         case "branch":
             return true;
+        case "transaction_number":
+            return value.length > 0;
+        case "medium_of_transaction":
+            return value.length > 0;
         default:
             return false;
     }
@@ -29,13 +34,37 @@ const TransactionManagement = () => {
 
     const [loan, setLoan] = useState({
         userId: context.user,
+
         transactionType: transactionTypes[0],
     });
     const [valid, setValid] = useState({
         amount: true,
+        medium_of_transaction: true,
+        transaction_number: true,
     });
+    const navigate = useNavigate();
 
-    const apply = () => {};
+    const apply = (e) => {
+        e.preventDefault();
+        axios
+            .post(`http://localhost:8080/addTransactions/`, {
+                transaction_number: loan.transaction_number,
+                account_number: loan.userId,
+                medium_of_transaction: loan.medium_of_transaction,
+                date_of_transaction: new Date().toISOString().split("T")[0],
+                transaction_type: loan.transactionType,
+                transaction_amount: loan.transaction_amount,
+            })
+            .then((resp) => {
+                console.log(resp);
+                alert("Transaction completed successfully");
+                navigate("/");
+            })
+            .catch((err) => {
+                console.log(err.response?.data?.message);
+                alert(err.response?.data?.message);
+            });
+    };
     const handleChange = async (e) => {
         setLoan({
             ...loan,
@@ -54,7 +83,26 @@ const TransactionManagement = () => {
                 <h2>Transaction Page</h2>
                 <Form onSubmit={apply}>
                     <FormGroup>
-                        <Label for='userId'>Customer ID</Label>
+                        <Label for='userId'>Transaction Number</Label>
+                        <Input
+                            type='text'
+                            name='transaction_number'
+                            id='transaction_number'
+                            placeholder='transaction_number'
+                            value={loan.transaction_number}
+                            onChange={handleChange}
+                            required
+                            invalid={
+                                loan?.transaction_number === "" ||
+                                !valid.transaction_number
+                            }
+                        />
+                        <FormFeedback>
+                            Please enter a valid account number
+                        </FormFeedback>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for='userId'>Account number</Label>
                         <Input
                             type='text'
                             name='userId'
@@ -69,7 +117,7 @@ const TransactionManagement = () => {
                             // }
                         />
                         <FormFeedback>
-                            Please enter a 8 character valid UserId
+                            Please enter a valid account number
                         </FormFeedback>
                     </FormGroup>
                     <FormGroup>
@@ -85,13 +133,32 @@ const TransactionManagement = () => {
                         </Input>
                     </FormGroup>
                     <FormGroup>
-                        <Label for='amount'>Loan Amount</Label>
+                        <Label for='amount'>Medium of Transaction</Label>
 
                         <Input
-                            type='amount'
+                            type='text'
+                            name='medium_of_transaction'
+                            id='medium_of_transaction'
+                            placeholder='Medium of Transaction'
+                            onChange={handleChange}
+                            required
+                            invalid={
+                                loan?.medium_of_transaction === "" ||
+                                !valid.medium_of_transaction
+                            }
+                        />
+                        <FormFeedback>
+                            Enter a valid medium of transaction
+                        </FormFeedback>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for='amount'>Transaction Amount</Label>
+
+                        <Input
+                            type='number'
                             name='amount'
                             id='amount'
-                            placeholder='Loan Amount'
+                            placeholder='Transaction Amount'
                             onChange={handleChange}
                             required
                             invalid={loan?.amount === "" || !valid.amount}
