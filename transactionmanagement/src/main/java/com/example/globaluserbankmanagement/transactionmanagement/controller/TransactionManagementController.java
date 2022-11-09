@@ -34,9 +34,12 @@ public class TransactionManagementController {
 
 		Date start_date= Date.valueOf(show_Transaction.getStart_date());
 		Date end_date=Date.valueOf(show_Transaction.getEnd_date());
-		System.out.println("here");
 		long millis= System.currentTimeMillis();
 		Date currentDate = new Date(millis);
+
+		if(end_date.compareTo(start_date) <0 ) throw new Exception("end date can not be before start date");
+		if(start_date.compareTo(currentDate) >=0 ) throw new Exception("start date should be before current date ");
+		
 		if(end_date.compareTo(currentDate) >0){
 			
 			throw new Exception("end date is ahead of current date");

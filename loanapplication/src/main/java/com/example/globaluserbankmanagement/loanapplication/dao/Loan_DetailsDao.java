@@ -19,7 +19,7 @@ public interface Loan_DetailsDao extends JpaRepository<Loan_Details,CompositeKey
 			@Param("customer_number") String customer_number);
 	
 	@Query("select a from Account_Master a where a.customer_number =:customer_number")
-	public List<Account_Master> checkIfUserCanApply(
+	public Account_Master checkIfUserCanApply(
 			@Param("customer_number") String customer_number);
 	
 

@@ -26,8 +26,11 @@ public class Loan_DetailsController {
 	public ResponseEntity<Loan_Details> addLoan(
 			@RequestBody Loan_Details loan_details) throws Exception
 	{
-		if(service.checkIfUserCanApply(loan_details.getCustomer_number()))
+		System.out.println(loan_details.getCustomer_number());
+		if(!service.checkIfUserCanApply(loan_details.getCustomer_number(),loan_details.getBranch_id()))
 			throw new Exception("User is not a valid Account Holder");
+
+		service.addLoan(loan_details);
 		
 		return new ResponseEntity<Loan_Details>(service.addLoan(loan_details),HttpStatus.ACCEPTED);
 	}
@@ -39,10 +42,4 @@ public class Loan_DetailsController {
 		return new ResponseEntity<List<Loan_Details>>(service.showAllLoans(customer_number),HttpStatus.ACCEPTED);
 	}
 	
-	@GetMapping("/checkIfUserCanApply/{customer_number}")
-	public ResponseEntity<Boolean> checkIfUserCanApply(
-			@PathVariable("customer_number") String customer_number)
-	{
-		return new ResponseEntity<Boolean>(service.checkIfUserCanApply(customer_number),HttpStatus.ACCEPTED);
-	}
 }

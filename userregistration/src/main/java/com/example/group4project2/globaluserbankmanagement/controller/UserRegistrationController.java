@@ -21,7 +21,10 @@ public class UserRegistrationController {
 	@PostMapping("/registerUser")
 	public ResponseEntity<Customer_Master> registerUser(@RequestBody Customer_Master customer_master)
 	{
+		
 		return new ResponseEntity<Customer_Master>(service.insertUser(customer_master),HttpStatus.ACCEPTED);
 	}
+
+	
 
 }

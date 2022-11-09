@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "account_master")
 public class Account_Master {
@@ -46,6 +47,13 @@ public class Account_Master {
 		this.branch_id = branch_id;
 		
 	}
+	public String getBranchId() {
+		return this.branch_id;
+	};
+	public void setBranchId(String id){
+		this.branch_id=id;
+	}
+
 
 	public String getAccount_number() {
 		return account_number;

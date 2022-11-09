@@ -8,5 +8,5 @@ public interface Loan_DetailsService {
 		
 	public Loan_Details addLoan(Loan_Details loan_details);
 	public List<Loan_Details> showAllLoans(String customer_number);
-	public boolean checkIfUserCanApply(String customer_number);
+	public boolean checkIfUserCanApply(String customer_number,String branch_id);
 }

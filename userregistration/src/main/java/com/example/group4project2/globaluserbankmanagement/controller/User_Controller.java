@@ -27,7 +27,9 @@ public class User_Controller {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(value="/login")
     public Optional<User_Details> getUserIdPassword( @RequestBody User_Details user_details  ) {
+        System.out.println(user_details.toString());
         Optional<User_Details> user= user_Service.getUserByIdPassword(user_details.getCustomer_id(),user_details.getPassword());
+        // System.out.println(user.get().toString());
         if(!user.isPresent()){
             throw new NullPointerException("UserName and Password are incorrect ");
         }
