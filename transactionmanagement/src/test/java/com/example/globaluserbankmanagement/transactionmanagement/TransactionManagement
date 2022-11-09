@@ -1,0 +1,63 @@
+package com.example.globaluserbankmanagement.transactionmanagement;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import com.example.globaluserbankmanagement.transactionmanagement.controller.TransactionManagementController;
+import com.example.globaluserbankmanagement.transactionmanagement.model.Show_Transaction;
+import com.example.globaluserbankmanagement.transactionmanagement.model.Transaction_Details;
+
+class TransactionManagement {
+	
+	TransactionManagementController controller = new TransactionManagementController();
+	
+	
+	
+	@Test
+	void showTransactionSuccessful() throws Exception {
+		
+		String account_number = null;
+	    String transaction_type = null;
+	    String start_date = null;
+	    String end_date = null;
+		Show_Transaction transaction = new Show_Transaction(account_number,
+															transaction_type,
+															start_date,
+															end_date);
+		
+		List<Transaction_Details> transactions = new ArrayList<Transaction_Details>();
+		//add the objects here
+		transactions.add(new Transaction_Details());
+		
+		ResponseEntity<List<Transaction_Details>> actual = controller.showTransactions(transaction);
+		ResponseEntity<List<Transaction_Details>> expected = new ResponseEntity<List<Transaction_Details>>(transactions, HttpStatus.ACCEPTED); 
+		
+		assertEquals(expected, actual);
+	}
+	
+	
+	@Test
+	void showTransactionUnsuccessful() throws Exception {
+		
+		String account_number = null;
+	    String transaction_type = null;
+	    String start_date = null;
+	    String end_date = null;
+		Show_Transaction transaction = new Show_Transaction(account_number,
+															transaction_type,
+															start_date,
+															end_date);
+
+		
+		ResponseEntity<List<Transaction_Details>> actual = controller.showTransactions(transaction);
+		Exception expected = new Exception("end date is ahead of current date");
+		assertEquals(expected, actual);
+	}
+
+}
