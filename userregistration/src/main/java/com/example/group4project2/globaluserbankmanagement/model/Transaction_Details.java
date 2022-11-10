@@ -19,11 +19,7 @@ public class Transaction_Details {
 	String medium_of_transaction;
 	String transaction_type;
 	int transaction_amount;
-	
-	
-	@ManyToOne
-	@JoinColumn(name = "account_number")
-	Account_Master account_master;
+	String  account_number;
 	
 	
 	public Transaction_Details() {
@@ -32,9 +28,10 @@ public class Transaction_Details {
 	
 	
 	public Transaction_Details(String transaction_number, Date date_of_transaction,
-			String medium_of_transaction, String transaction_type, int transaction_amount) {
+			String medium_of_transaction, String transaction_type, int transaction_amount,String account_number) {
 		super();
 		this.transaction_number = transaction_number;
+		this.account_number=account_number;
 		this.date_of_transaction = date_of_transaction;
 		this.medium_of_transaction = medium_of_transaction;
 		this.transaction_type = transaction_type;
@@ -43,12 +40,21 @@ public class Transaction_Details {
 
 
 	public String getTransaction_number() {
-		return transaction_number;
+		return this.transaction_number;
 	}
 
 
 	public void setTransaction_number(String transaction_number) {
 		this.transaction_number = transaction_number;
+	}
+	
+	public String getAccount_number() {
+		return account_number;
+	}
+
+
+	public void setAccount_number(String account_number) {
+		this.account_number = account_number;
 	}
 
 

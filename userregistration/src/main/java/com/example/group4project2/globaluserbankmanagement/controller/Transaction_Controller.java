@@ -25,7 +25,7 @@ public class Transaction_Controller {
         Optional<Transaction_Details> temp = transaction_Service.getTransaction(transaction_Details.getTransaction_number());
         if(temp.isPresent()){
             int amt =temp.get().getTransaction_amount();
-            System.out.println(temp.get().getTransaction_type());
+            System.out.println(temp.get().getAccount_number());
 
             if(temp.get().getTransaction_type().equals("withdraw")){
                 amt -= transaction_Details.getTransaction_amount();
